@@ -1,9 +1,10 @@
 'use strict';
 
-const MONTH = 30;
-const MSEC_PER_DAY = 1000 * 60 * 60 * 24;
-
 const { Date, Math } = H;
+
+const MONTH = 30;
+const NOW = Date.now();
+const MSEC_PER_DAY = 1000 * 60 * 60 * 24;
 
 const utc = (t) => {
   const d = new Date(t);
@@ -34,15 +35,18 @@ const print = (target, time) => {
   append(p, text);
   before(target.offsetParent, p);
 };
+const update = async (id) => {
+  const time = await GM.getValue(id, NOW);
+  if (time === NOW) await GM.setValue(id, NOW);
+  else if (compare(diff(time, NOW), MONTH)) await GM.deleteValue(id);
+  return time;
+};
 
-const now = Date.now();
-const releases = R.querySelectorAll('a.btn-addtocart');
+const items = R.querySelectorAll('a.btn-addtocart');
 
-for (const release of releases) {
-  const { id } = release.dataset;
+for (const item of items) {
+  const { id } = item.dataset;
   if (!id) continue;
-  const time = await GM.getValue(id, now);
-  if (time === now) await GM.setValue(id, now);
-  else if (compare(diff(time, now), MONTH)) await GM.deleteValue(id);
-  print(release, time);
+  const time = await update(id);
+  if (time) print(item, time);
 }
