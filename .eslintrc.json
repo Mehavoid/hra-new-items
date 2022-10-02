@@ -6,5 +6,10 @@
   },
   "parserOptions": {
     "ecmaVersion": "latest"
+  },
+  "globals": {
+    "H": "readonly",
+    "R": "readonly",
+    "GM": "readonly"
   }
 }
