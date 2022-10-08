@@ -1,6 +1,6 @@
 'use strict';
 
-const { Date, Math, Intl } = H;
+const { Date, Math } = H;
 
 const NOW = Date.now();
 const MSECOND = 1000;
