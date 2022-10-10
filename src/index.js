@@ -51,12 +51,15 @@ const utc = (t) => {
   const seconds = d.getSeconds();
   return Date.UTC(year, month, day, hours, minutes, seconds);
 };
+
 const diff = (t1, t2) => {
   const now = utc(t1);
   const then = utc(t2);
   return (then - now) / MSECOND;
 };
+
 const compare = (d1, d2) => d1 >= d2;
+
 const relative = (delta) => {
   for (const name in DURATION_UNITS) {
     const threshold = THRESHOLD[name];
@@ -66,6 +69,7 @@ const relative = (delta) => {
   }
   return [0, 's'];
 };
+
 const pretty = (time, unit) => {
   const [short, long] = TEMPLATE[unit];
   const templ = time <= 1 ? short : long;
@@ -73,9 +77,13 @@ const pretty = (time, unit) => {
 };
 
 const create = (name) => R.createElement(name);
+
 const createT = (str) => R.createTextNode(str);
+
 const append = (a, b) => a.append(b);
+
 const before = (a, b) => a.insertBefore(b, a.lastChild);
+
 const print = (target, time) => {
   const p = create('p');
   const s = create('strong');
@@ -87,6 +95,7 @@ const print = (target, time) => {
   append(p, text);
   before(target.offsetParent, p);
 };
+
 const update = async (id) => {
   const time = await GM.getValue(id, NOW);
   if (time === NOW) await GM.setValue(id, NOW);
