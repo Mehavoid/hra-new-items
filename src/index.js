@@ -71,21 +71,16 @@ const pretty = (time, unit) => {
   const templ = time <= 1 ? short : long;
   return PAST.replace('%s', templ.replace('%d', time));
 };
-
-const create = (name) => R.createElement(name);
-const createT = (str) => R.createTextNode(str);
-const append = (a, b) => a.append(b);
-const before = (a, b) => a.insertBefore(b, a.lastChild);
 const print = (target, time) => {
-  const p = create('p');
-  const s = create('strong');
-  const text = createT(time);
-  const space = createT('\u00A0');
+  const p = R.createElement('p');
+  const s = R.createElement('strong');
+  const text = R.createTextNode(time);
+  const space = R.createTextNode('\u00A0');
   s.textContent = 'Available:';
-  append(p, s);
-  append(p, space);
-  append(p, text);
-  before(target.offsetParent, p);
+  p.append(s);
+  p.append(space);
+  p.append(text);
+  target.parentNode.before(p);
 };
 const update = async (id) => {
   const time = await GM.getValue(id, NOW);
