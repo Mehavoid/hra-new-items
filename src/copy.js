@@ -1,5 +1,8 @@
 'use strict';
 
+const BLANK = '';
+const WHITESPACE = /\s/g;
+
 const inline = (id) =>
   `javascript:{
   d=document;
@@ -13,7 +16,7 @@ const inline = (id) =>
     d.execCommand('copy');
   } catch(e) {};
   d.body.lastChild.remove();
-}`.replace(/\s/g, '');
+}`.replace(WHITESPACE, BLANK);
 
 const clone = (element) => {
   const a = element.cloneNode(true);
