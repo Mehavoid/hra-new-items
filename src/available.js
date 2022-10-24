@@ -58,7 +58,7 @@ const diff = (t1, t2) => {
 
 const compare = (d1, d2) => d1 >= d2;
 
-const relative = (delta) => {
+const reltime = (delta) => {
   for (const name in DURATION_UNITS) {
     const threshold = THRESHOLD[name];
     const div = DURATION_UNITS[name];
@@ -68,16 +68,17 @@ const relative = (delta) => {
   return [0, 's'];
 };
 
-const pretty = (time, unit) => {
+const pretty = (delta) => {
+  const [time, unit] = reltime(delta);
   const [short, long] = TEMPLATE[unit];
   const templ = time <= 1 ? short : long;
   return PAST.replace('%s', templ.replace('%d', time));
 };
 
-const print = (target, time) => {
+const print = (target, date) => {
   const p = R.createElement('p');
   const s = R.createElement('strong');
-  const text = R.createTextNode(time);
+  const text = R.createTextNode(date);
   const space = R.createTextNode('\u00A0');
   s.textContent = 'Available:';
   p.append(s);
@@ -94,10 +95,10 @@ const update = async (id) => {
   return delta;
 };
 
-const add = async (item) => {
+const available = async (item) => {
   const delta = await update(item.dataset.id);
-  const time = pretty(...relative(delta));
-  print(item, time);
+  const date = pretty(delta);
+  print(item, date);
 };
 
 export { add };
