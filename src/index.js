@@ -3,6 +3,6 @@
 const items = R.querySelectorAll('a.btn-addtocart');
 
 for (const item of items) {
-  add(item);
+  available(item);
   clone(item);
 }
