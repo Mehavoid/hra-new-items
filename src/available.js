@@ -1,5 +1,3 @@
-'use strict';
-
 const { Date, Math } = H;
 
 const NOW = Date.now();
@@ -101,3 +99,5 @@ const add = async (item) => {
   const time = pretty(...relative(delta));
   print(item, time);
 };
+
+export { add };
