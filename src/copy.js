@@ -1,5 +1,3 @@
-'use strict';
-
 const BLANK = '';
 const WHITESPACE = /\s/g;
 
@@ -29,3 +27,5 @@ const clone = (element) => {
   if (a.title) a.title = 'Copy release ID';
   element.parentNode.appendChild(a);
 };
+
+export { clone };
