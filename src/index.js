@@ -1,4 +1,4 @@
-import { add } from './available.js';
+import { available } from './available.js';
 import { clone } from './copy.js';
 
 const items = R.querySelectorAll('a.btn-addtocart');
