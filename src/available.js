@@ -101,4 +101,4 @@ const available = async (item) => {
   print(item, date);
 };
 
-export { add };
+export { available };
